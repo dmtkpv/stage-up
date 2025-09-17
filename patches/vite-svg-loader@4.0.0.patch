@@ -1,0 +1,44 @@
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..6e03de5e0380b97fda5d1f8c1b68d572720dc8f7
+--- /dev/null
++++ b/.idea/workspace.xml
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectViewState">
++    <option name="autoscrollToSource" value="true" />
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++    <option name="sortByType" value="true" />
++    <option name="sortKey" value="BY_TYPE" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/index.js b/index.js
+index c2f93f33c4956004e83c0e12e3514eca912107b4..df9d3c2f9fa268a5fa456c1fcb12fbb9a357447a 100644
+--- a/index.js
++++ b/index.js
+@@ -1,4 +1,5 @@
+ const fs = require('fs').promises
++const { parse } = require('path')
+ const { compileTemplate } = require('@vue/compiler-sfc')
+ const { optimize: optimizeSvg } = require('svgo')
+ 
+@@ -44,6 +45,7 @@ module.exports = function svgLoader (options = {}) {
+         }).data
+       }
+ 
++      const { name } = parse(path);
+       const { code } = compileTemplate({
+         id: JSON.stringify(id),
+         source: svg,
+@@ -51,7 +53,7 @@ module.exports = function svgLoader (options = {}) {
+         transformAssetUrls: false
+       })
+ 
+-      return `${code}\nexport default { render: render }`
++      return `${code}\nexport default { render: render, __name: '${name}' }`
+     }
+   }
+ }

@@ -1,0 +1,10 @@
+**
+!package.json
+!pnpm-workspace.yaml
+!ecosystem.config.cjs
+!gcp.json
+!patches
+!packages
+packages/frontend/dist
+packages/frontend/public/sitemap*.xml
+packages/*/node_modules

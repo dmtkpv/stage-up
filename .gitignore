@@ -1,0 +1,5 @@
+.idea
+node_modules
+backups
+packages/frontend/dist
+packages/frontend/public/sitemap*.xml

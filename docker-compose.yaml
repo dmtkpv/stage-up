@@ -1,0 +1,126 @@
+volumes:
+  database:
+  pnpm_store:
+  mails:
+services:
+
+
+
+  # --------------------
+  # Dev
+  # --------------------
+
+  dev:
+    tty: true
+    build:
+      context: .
+      target: base
+      args:
+        WORK_DIR: ${WORK_DIR}
+        PNPM_DIR: ${PNPM_DIR}
+    environment:
+      NODE_ENV: development
+    env_file:
+      - .env
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - ${FRONTEND_HMR_PORT}:${FRONTEND_HMR_PORT}
+    volumes:
+      - pnpm_store:${PNPM_DIR}
+      - ./:/app
+    depends_on:
+      database:
+        condition: service_healthy
+      smtp:
+        condition: service_healthy
+      stripe:
+        condition: service_started
+
+
+
+  # --------------------
+  # Prod
+  # --------------------
+
+  prod:
+    build:
+      context: .
+      target: prod
+      args:
+        WORK_DIR: ${WORK_DIR}
+        PNPM_DIR: ${PNPM_DIR}
+    environment:
+      NODE_ENV: production
+    env_file:
+      - .env
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    depends_on:
+      database:
+        condition: service_healthy
+      smtp:
+        condition: service_healthy
+      stripe:
+        condition: service_started
+
+
+
+  # --------------------
+  # Database
+  # --------------------
+
+  database:
+    image: postgis/postgis:17-3.6-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_DATABASE} -p ${DB_PORT}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    command: postgres -p ${DB_PORT}
+
+
+
+  # --------------------
+  # SMTP
+  # --------------------
+
+  smtp:
+    image: axllent/mailpit:v1.27.8
+    environment:
+      MP_SMTP_BIND_ADDR: 0.0.0.0:${MAIL_PORT}
+      MP_UI_BIND_ADDR: 0.0.0.0:${MAIL_UI_PORT}
+    ports:
+      - ${MAIL_PORT}:${MAIL_PORT}
+      - ${MAIL_UI_PORT}:${MAIL_UI_PORT}
+    volumes:
+      - mails:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider -q http://localhost:${MAIL_UI_PORT}/readyz" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+
+  # --------------------
+  # Stripe
+  # --------------------
+
+  stripe:
+    image: stripe/stripe-cli:v1.30.0
+    environment:
+      STRIPE_API_KEY: ${STRIPE_SECRET}
+    command: >
+      listen 
+      --events customer.subscription.created,customer.subscription.deleted,customer.subscription.paused,customer.subscription.resumed,customer.subscription.updated
+      --forward-to http://dev:${BACKEND_PORT}/stripe/webhook

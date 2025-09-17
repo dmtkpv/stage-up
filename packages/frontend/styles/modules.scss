@@ -1,0 +1,366 @@
+// -----------------
+// Common
+// -----------------
+
+main {
+    margin-top: $header;
+}
+hr {
+    margin: 0;
+    border: none;
+    border-top: $border;
+}
+.link {
+    display: inline-block;
+    color: $blue;
+    &:hover { color: $blue-dark }
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.cut {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.break {
+    word-break: break-word;
+}
+.ul-reset {
+    margin:0;
+    padding: 0;
+    text-indent: 0;
+    list-style-type: none;
+}
+.unread {
+    min-width: 16px;
+    padding: 1px 4px;
+    height: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-align: center;
+    background: $blue;
+    color: $white;
+}
+
+
+
+// -----------------
+// List
+// -----------------
+
+.list {
+
+    @extend .ul-reset;
+
+    li {
+        display: flex;
+        align-items: flex-start;
+        &:not(:last-child) { margin-bottom: 12px }
+    }
+
+    &_icon {
+        flex-shrink: 0;
+        padding: 4px 4px 0 0;
+        margin-right: 8px;
+        color: $blue;
+
+        svg {
+            height: 16px !important;
+        }
+    }
+
+}
+
+
+
+// -----------------
+// Tile
+// -----------------
+
+.tile {
+
+    background: $white;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    border: 0.5px solid #ecedf2;
+
+    &._padded {
+        padding: $gap-lg;
+    }
+
+    &._disabled {
+        opacity: .25;
+        pointer-events: none;
+    }
+
+}
+
+
+
+// -----------------
+// Auth
+// -----------------
+
+.auth {
+
+    position: relative;
+    max-width: 480px;
+
+    @at-root main & header {
+        text-align: center;
+        a { display: none }
+    }
+
+    .ui-button {
+        width: 100%;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 12px;
+        &:not(:last-child) { margin-bottom: 16px; }
+    }
+
+}
+
+
+
+// -----------------
+// Landing
+// -----------------
+
+.landing {
+
+    overflow-x: hidden; /* fix landing-hero */
+
+    .container-md, .container-sm {
+        padding-top: 96px;
+        padding-bottom: 96px;
+    }
+
+    .container-md + .container-md {
+        position: relative;
+        &:before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: $padding-x;
+            right: $padding-x;
+            border-top: $border;
+        }
+
+    }
+
+}
+
+
+
+// -----------------
+// Hero
+// -----------------
+
+.hero {
+
+    padding: $gap-lg;
+
+    @include lg {
+        display: flex;
+        align-items: center;
+    }
+
+
+    // content
+
+    &_content {
+
+        flex-grow: 1;
+
+        .ui-auth {
+            display: none;
+        }
+
+        .unit-job_heading .h5,
+        .unit-company_heading .h5,
+        .unit-candidate_heading .h5 {
+            font-size: $t4;
+        }
+
+    }
+
+
+    // actions
+
+    &_actions {
+
+        @extend .row;
+
+        @include lg {
+            flex-shrink: 0;
+            justify-content: flex-end;
+            padding-left: $gap-lg;
+        }
+
+        @include md-sm {
+            margin-top: $gap-lg;
+            padding-top: $gap-lg;
+            border-top: $border;
+        }
+
+    }
+
+
+}
+
+
+
+// -----------------
+// Promo
+// -----------------
+
+.promo {
+
+    color: $grey-dark;
+
+    @include lg-md {
+        display: flex;
+    }
+
+    &_half {
+        flex: 1 0 0;
+        padding: $gap-lg;
+        &:first-child {
+            @include lg-md { border-right: $border }
+            @include sm { border-bottom: $border }
+        }
+    }
+
+    &_note {
+        padding: 24px 0;
+    }
+
+    &_cell {
+        flex: 1 0 0;
+        background: $blue-light;
+        border-radius: $radius;
+        font-size: $t6;
+        padding: 16px 0;
+        text-align: center;
+    }
+
+    &_subtitle {
+        display: flex;
+        align-items: center;
+        &_icon {
+            background: $blue-light;
+            color: $blue;
+            width: 48px;
+            height: 48px;
+            padding: 12px;
+            border-radius: 50%;
+            margin-right: 16px;
+            svg { height: 100% }
+        }
+    }
+
+    &_list {
+        padding: 24px 0;
+        font-size: $t6;
+    }
+
+    b {
+        display: block;
+    }
+    &_half:first-child b {
+        color: $blue;
+    }
+    &_half:last-child b {
+        color: $black;
+    }
+    &_note b {
+        display: inline;
+    }
+    &_cell b {
+        font-size: $t4;
+    }
+    &_list b {
+        font-size: $t5;
+    }
+    &_subtitle_text b {
+        font-size: $t4;
+    }
+
+}
+
+// -----------------
+// Center
+// -----------------
+
+.center {
+
+    padding: $padding-y $padding-x;
+    min-height: calc(100vh - $header);
+    display: flex;
+
+    & > * {
+        margin: auto;
+        flex-grow: 1;
+    }
+
+}
+
+
+
+// -----------------
+// Alert
+// -----------------
+
+.alert {
+    border-radius: $radius;
+    padding: 14px 24px;
+    &._error { @extend %red-light; }
+    &._success { @extend %blue-light; }
+}
+
+
+
+// -----------------------------
+// Box (inputs, files)
+// -----------------------------
+
+.box {
+    display: flex;
+    align-items: center;
+    border-radius: $radius;
+    padding: 8px 12px;
+    min-height: 48px;
+    min-width: 0;
+    gap: 8px;
+    & > svg { flex-shrink: 0 }
+}
+
+
+
+// -----------------
+// Containers
+// -----------------
+
+%container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: $padding-y $padding-x;
+}
+
+.container-md {
+    @extend %container;
+    @include lg { max-width: $md }
+    @include md { max-width: 1024px }
+}
+
+.container-sm {
+    @extend %container;
+    @include lg-md { max-width: 1024px }
+}
