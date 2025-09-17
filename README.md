@@ -1,5 +1,5 @@
 # Stage Up
-Internship placement platform
+Showcase of an app built with Vue.js frontend, ExpressJS + PostgreSQL backend, and integrations with Socket.io, Google Cloud Storage, Stripe
 
 
 
