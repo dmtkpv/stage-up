@@ -5,10 +5,12 @@ Showcase of an app built with Vue.js frontend, ExpressJS + PostgreSQL backend, a
 
 ## Installation
 
-### Production version
 ```shell
 git clone https://github.com/dmtkpv/stage-up.git
 cd stage-up
+```
+### Production version
+```shell
 docker compose up prod --build
 ```
 
