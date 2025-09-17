@@ -1,4 +1,39 @@
-# Scripts
+# Stage Up
+Internship placement platform
+
+
+
+## Installation
+
+### Production version
+```shell
+git clone https://github.com/dmtkpv/stage-up.git
+cd stage-up
+docker compose up prod --build
+```
+
+### Development version
+```shell
+docker compose up dev --build
+
+# backend (in a new terminal tab)
+docker compose exec dev sh
+pnpm install
+pnpm backend serve
+
+# frontend (in a new terminal tab)
+docker compose exec dev sh
+pnpm frontend serve
+```
+
+### URLs
+http://localhost:49041 - Backend  
+http://localhost:49042 - Frontend  
+http://localhost:49044 - Mail
+
+
+
+## Scripts
 
 | Script                                           | Description                                                                                                    |
 |--------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
@@ -15,7 +50,9 @@
 | `pnpm frontend build`                            | Build frontend (production environment)                                                                        |
 | `pnpm frontend serve`                            | Run frontend server                                                                                            |
 
-# Directory structure
+
+
+## Directory structure
 
 ```sh
 packages
