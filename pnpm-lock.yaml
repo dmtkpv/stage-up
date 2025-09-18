@@ -142,9 +142,6 @@ importers:
       lodash.merge:
         specifier: 4.6.2
         version: 4.6.2
-      nocache:
-        specifier: 4.0.0
-        version: 4.0.0
       rollup-plugin-visualizer:
         specifier: 5.12.0
         version: 5.12.0(rollup@3.29.5)
@@ -1875,10 +1872,6 @@ packages:
   netmask@2.0.2:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==}
     engines: {node: '>= 0.4.0'}
-
-  nocache@4.0.0:
-    resolution: {integrity: sha512-AntnTbmKZvNYIsTVPPwv7dfZdAfo/6H/2ZlZACK66NAOQtIApxkB/6pf/c+s+ACW8vemGJzUCyVTssrzNUK6yQ==}
-    engines: {node: '>=16.0.0'}
 
   node-addon-api@5.1.0:
     resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
@@ -4563,8 +4556,6 @@ snapshots:
   negotiator@1.0.0: {}
 
   netmask@2.0.2: {}
-
-  nocache@4.0.0: {}
 
   node-addon-api@5.1.0: {}
 

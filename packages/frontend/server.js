@@ -1,6 +1,5 @@
 import express from 'express';
 import cookieParser from 'cookie-parser'
-import nocache from 'nocache'
 import compression from 'compression'
 import handler from 'express-async-handler'
 import createSSR from 'vite-vue-ssr/createSSR'
@@ -105,7 +104,7 @@ function createCookies (req, res) {
         next();
     })
 
-    app.get('/*', nocache(), handler(async (req, res) => {
+    app.get('/*', handler(async (req, res) => {
         const locale = res.locals.locale || 'nl';
         const path = res.locals.path || req.url;
         const base = res.locals.base;
