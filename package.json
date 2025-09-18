@@ -4,7 +4,8 @@
     "backend": "pnpm --filter @this/backend",
     "frontend": "pnpm --filter @this/frontend",
     "shared": "pnpm --filter @this/shared",
-    "start": "pm2-runtime start ecosystem.config.cjs"
+    "start": "pm2-runtime start ecosystem.config.cjs",
+    "postinstall": "node secrets/index.js"
   },
   "dependencies": {
     "pm2": "6.0.11"

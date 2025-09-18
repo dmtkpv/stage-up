@@ -1,4 +1,6 @@
 .idea
+.env
+gcp.json
 node_modules
 backups
 packages/frontend/dist
