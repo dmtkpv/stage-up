@@ -72,6 +72,17 @@ app.use(cors({
 
 
 // -----------------
+// Set locale
+// -----------------
+
+app.use((req, res, next) => {
+    res.locals.locale = req.acceptsLanguages('nl', 'en') || 'nl';
+    next();
+});
+
+
+
+// -----------------
 // Version mismatch
 // -----------------
 
@@ -80,17 +91,6 @@ app.use((req, res, next) => {
     if (version && version !== VERSION) throw new Exception('DEPRECATED', { version, required: VERSION });
     next();
 })
-
-
-
-// -----------------
-// Set locale
-// -----------------
-
-app.use((req, res, next) => {
-    res.locals.locale = req.acceptsLanguages('nl', 'en') || 'nl';
-    next();
-});
 
 
 
