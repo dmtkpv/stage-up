@@ -85,6 +85,11 @@ function createCookies (req, res) {
         res.status(status).send(html);
     }))
 
+    app.use(async (err, req, res, next) => {
+        console.log(err);
+        res.status(500).send(NODE_ENV === 'production' ? 'Service unavailable' : err)
+    })
+
     app.listen(FRONTEND_PORT, () => {
         console.log(`http://localhost:${FRONTEND_PORT}`)
     })
