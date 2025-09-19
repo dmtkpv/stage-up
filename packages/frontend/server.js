@@ -11,38 +11,7 @@ import Axios from 'axios'
 // Data
 // -------------------
 
-const { FRONTEND_PORT, BACKEND_URL, NODE_ENV } = process.env;
-
-const axios = Axios.create({
-    baseURL: BACKEND_URL
-})
-
-const errors = {
-    en: await loadErrors('en'),
-    nl: await loadErrors('nl'),
-}
-
-
-
-// -------------------
-// Load errors
-// -------------------
-
-async function loadErrors (locale) {
-
-    try {
-        const response = await axios.get('/content/errors', {
-            headers: { ['Accept-Language']: locale }
-        })
-        return response.data.data;
-    }
-
-    catch (e) {
-        console.log('Backend not responding...')
-        setTimeout(() => loadErrors(locale), 2000)
-    }
-
-}
+const { FRONTEND_PORT, NODE_ENV } = process.env;
 
 
 
@@ -109,7 +78,7 @@ function createCookies (req, res) {
         const path = res.locals.path || req.url;
         const base = res.locals.base;
         const cookies = createCookies(req, res);
-        const state = { locale, base, cookies, errors: errors[locale] };
+        const state = { locale, base, cookies };
         const html = await ssr.render(path, state);
         if (state.redirect) return res.redirect(state.redirect);
         const status = state.error ? state.error.status || 500 : 200;
