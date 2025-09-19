@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import handler from 'express-async-handler'
 import createSSR from 'vite-vue-ssr/createSSR'
-import Axios from 'axios'
 
 
 

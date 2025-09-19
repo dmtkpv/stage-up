@@ -12,7 +12,7 @@ export default function ({ state }) {
     }
 
     function get (code) {
-        const store = state.content.errors || state.errors;
+        const store = state.content.errors;
         return store.find(error => error.code === code);
     }
 
